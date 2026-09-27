@@ -1,0 +1,21 @@
+# License
+
+This project is open source, dual-licensed by component:
+
+- Firmware — everything under `firmware/` — is licensed under the
+  **Apache License 2.0**. See [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt).
+
+- Hardware — everything under `jlcpcb/` (the KiCad design, Gerbers, BOM, and
+  pick-and-place / CPL files) — is licensed under the
+  **CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0)**.
+  See [`LICENSES/CERN-OHL-P-2.0.txt`](LICENSES/CERN-OHL-P-2.0.txt).
+
+Top-level documentation (the README, user manual, and BOM pages) accompanies the
+hardware and firmware and may be used under either license.
+
+Copyright (c) 2026 EVtivity.
+
+"EVtivity" and the EVtivity logo are trademarks of their owner and are **not**
+licensed for use under either license above. You may build, modify, and sell the
+hardware and firmware; you may not use the EVtivity name or logo to brand your
+derivative without permission.

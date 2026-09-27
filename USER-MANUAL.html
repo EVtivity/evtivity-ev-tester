@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EVtivity EV Tester - User Manual</title>
+<style>
+:root{
+  --green:#15913f; --green-strong:#137236; --green-tint:#dcf4e5;
+  --bg:#ffffff; --surface:#f3f6fa; --surface-2:#e9eef5;
+  --border:#d6deea; --border-strong:#bcc8d8;
+  --ink:#0c1626; --text:#2a394d; --muted:#4d5c72; --faint:#6f7d90;
+  --code:#0b6b62;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 4px 16px rgba(16,24,40,.04);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;font-size:16px;line-height:1.68;color:var(--text);
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1100px 520px at 50% -12%,#f1f8f4,var(--bg)) no-repeat,var(--bg);}
+::selection{background:var(--green-tint);color:var(--ink);}
+.wrap{max-width:740px;margin:0 auto;padding:56px 24px 104px;}
+
+header{padding-bottom:1.75rem;margin-bottom:0.5rem;border-bottom:1px solid var(--border);}
+.logo{display:flex;align-items:center;gap:0.75rem;}
+.logo svg{width:40px;height:40px;flex:none;}
+h1{font-size:2rem;line-height:1.08;margin:0;font-weight:750;letter-spacing:-0.025em;
+  color:var(--ink);text-wrap:balance;}
+h1 .sub{color:var(--green);font-weight:750;}
+.tagline{color:var(--muted);font-size:0.95rem;margin-top:0.6rem;}
+.meta{color:var(--faint);font-size:0.75rem;letter-spacing:0.05em;margin-top:0.9rem;text-transform:uppercase;}
+
+h2{font-size:1.4rem;line-height:1.22;font-weight:720;letter-spacing:-0.015em;color:var(--ink);
+  margin:3.5rem 0 0.9rem;padding-top:2rem;border-top:1px solid var(--border);scroll-margin-top:1.5rem;
+  display:flex;align-items:baseline;gap:0.7rem;text-wrap:balance;}
+h2 .n{flex:none;color:var(--green);font-size:0.95rem;font-weight:700;letter-spacing:0;
+  font-variant-numeric:tabular-nums;}
+h3{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;
+  color:var(--muted);margin:1.9rem 0 0.5rem;}
+p{margin:0.8rem 0;text-wrap:pretty;}
+b,strong{color:var(--ink);font-weight:650;}
+ul{margin:0.8rem 0;padding-left:1.35rem;}
+li{margin:0.35rem 0;}
+li::marker{color:var(--faint);}
+a{color:var(--green);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:2px;}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:3px;}
+
+code{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:0.85em;
+  background:var(--surface-2);color:var(--code);padding:0.12em 0.42em;border-radius:5px;border:1px solid var(--border);}
+kbd{font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ink);background:#fff;
+  border:1px solid var(--border-strong);border-bottom-width:2px;border-radius:6px;
+  padding:0.1em 0.5em;box-shadow:0 1px 0 rgba(16,24,40,.03);white-space:nowrap;}
+pre{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;
+  padding:0.9rem 1.05rem;margin:0.9rem 0;overflow-x:auto;line-height:1.55;
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:0.82rem;color:var(--code);}
+pre .c{color:var(--faint);}
+.note{background:var(--green-tint);border:1px solid var(--border);border-left:3px solid var(--green);
+  border-radius:6px;padding:.7rem .95rem;margin:1rem 0;color:var(--ink);}
+.grn{color:var(--green);}
+
+.scroll{overflow-x:auto;margin:1.1rem 0;}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.9rem;
+  background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.scroll table{margin:0;}
+th,td{padding:0.65rem 0.85rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--border);}
+th{background:var(--surface-2);color:var(--muted);font-size:0.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;}
+td{color:var(--text);}
+tr:last-child td{border-bottom:none;}
+table tr:hover td{background:var(--surface);}
+
+nav.toc{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:1.1rem 1.4rem;margin:1.75rem 0;box-shadow:var(--shadow);}
+nav.toc h3{margin:0 0 0.6rem;}
+nav.toc ol{margin:0;padding-left:1.3rem;columns:2;column-gap:2rem;font-size:0.9rem;}
+nav.toc li{margin:0.28rem 0;}
+nav.toc a{color:var(--text);}
+nav.toc a:hover{color:var(--green);text-decoration:none;}
+
+footer{margin-top:4rem;border-top:1px solid var(--border);padding-top:1.2rem;
+  color:var(--faint);font-size:0.8rem;text-align:center;}
+
+@media (max-width:560px){
+  .wrap{padding:36px 18px 72px;}
+  h1{font-size:1.65rem;} h2{font-size:1.25rem;}
+  nav.toc ol{columns:1;}
+}
+@media print{
+  body{background:#fff;}
+  .wrap{max-width:none;padding:0;}
+  nav.toc,table,pre,ul,li{break-inside:avoid;}
+  h2,h3{break-after:avoid;}
+  a{color:inherit;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EVtivity logo">
+      <defs>
+        <mask id="ringgaps">
+          <rect width="120" height="120" fill="white"/>
+          <polygon points="68.82,-8.24 76.70,-6.86 69.82,32.54 61.94,31.16" fill="black"/>
+          <polygon points="52.08,87.46 59.96,88.84 53.08,128.24 45.20,126.86" fill="black"/>
+        </mask>
+      </defs>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#22c55e" stroke-width="12" mask="url(#ringgaps)"/>
+      <g transform="translate(60 60) scale(0.95) translate(-60 -60)">
+        <path d="M68 20L38 68h22l-6 32 30-48H62l6-32z" fill="#22c55e"/>
+      </g>
+    </svg>
+    <h1>EVtivity <span class="sub">EV Tester</span></h1>
+  </div>
+  <div class="tagline">AC / SAE J1772 Type 1 vehicle-side charging simulator</div>
+  <div class="meta">Firmware v0.1.22 &middot; Seeed XIAO ESP32-S3 &middot; User Manual</div>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#s1">What it is</a></li>
+    <li><a href="#s2">Connections &amp; power</a></li>
+    <li><a href="#s3">The buttons</a></li>
+    <li><a href="#s4">The three modes</a></li>
+    <li><a href="#s5">The display</a></li>
+    <li><a href="#s6">Fault injection</a></li>
+    <li><a href="#s7">WiFi setup</a></li>
+    <li><a href="#s8">Web control panel</a></li>
+    <li><a href="#s9">MQTT remote control</a></li>
+    <li><a href="#s10">Antenna &amp; troubleshooting</a></li>
+    <li><a href="#s11">Specifications</a></li>
+    <li><a href="#s12">Safety</a></li>
+  </ol>
+</nav>
+
+<h2 id="s1"><span class="n">1</span>What it is</h2>
+<p>The EVtivity EV Tester emulates the <b>electric-vehicle side</b> of a J1772 AC charging session. You
+plug it into a charging station (EVSE) in place of a car and drive the session through three states, so
+you can verify that the station advertises the right status, offers the right current, and handles
+connect, charge, suspend, unplug, and fault conditions - and that your CSMS logs it all.</p>
+<p>It is a <b>signal-level bench tool</b>. It switches the J1772 Control Pilot state resistors and reads
+the pilot PWM. It never carries mains power; only the CP, PP, and GND signal lines reach the board. Use
+it for EVSE bring-up, OCPP conformance checks, and demos.</p>
+
+<h2 id="s2"><span class="n">2</span>Connections &amp; power</h2>
+<div class="scroll"><table>
+<tr><th>Connector</th><th>Purpose</th></tr>
+<tr><td>J1 (3-pin JST)</td><td>J1772 signal inlet: <b>CP / PP / GND</b>. Signal only, no mains.</td></tr>
+<tr><td>J2 (barrel jack)</td><td>5 V DC power input.</td></tr>
+<tr><td>USB-C (on the XIAO)</td><td>Power and firmware updates.</td></tr>
+<tr><td>J3 (4-pin JST)</td><td>LCD cable (G / 5V / SDA / SCL).</td></tr>
+<tr><td>SW1 / SW2 (2-pin JST)</td><td>The MODE and STATS buttons, wired off-board.</td></tr>
+<tr><td>U.FL (on the XIAO)</td><td><b>External WiFi antenna - required for any network feature.</b></td></tr>
+</table></div>
+<p>Power it from a <b>5 V DC barrel jack</b> (1 A min, 2 A recommended) or <b>USB-C</b>. Either source runs
+the whole device including the LCD; you may power both at once.</p>
+
+<h3>Power-up: what you see and hear</h3>
+<p>Every power-up runs the same sequence. It is worth knowing, because the sounds tell you what the
+tester is doing without looking at it.</p>
+<div class="scroll"><table>
+<tr><th>When</th><th>What happens</th></tr>
+<tr><td>immediately</td><td>Backlight on. The screen reads <code>EVtivity Tester</code> / <code>AC J1772 v0.1.22</code>.</td></tr>
+<tr><td>~0.3-1.5 s</td><td><b>The startup fanfare</b> - six rising notes, the "Charge!" motif - plays while the splash is up.</td></tr>
+<tr><td>~1.5-2.0 s</td><td>The on-board LED blinks three times, then the tester self-checks its display connection.</td></tr>
+<tr><td>~2.1 s</td><td>Splash clears to the <b>Ready</b> screen. <b>The tester is fully usable from here</b> - buttons, pilot and fault injection all work, with or without WiFi.</td></tr>
+<tr><td>~4.3 s</td><td>If WiFi is configured, it joins in the background. On success you hear a <b>short rising two-note chime</b> and the screen shows the web-panel IP address for four seconds.</td></tr>
+</table></div>
+<p>With no WiFi configured, nothing further happens and the tester simply runs offline - that is normal,
+not a fault. If a configured network cannot be joined, it retries five times ten seconds apart, then powers
+the radio down and the Ready line reads <code>WiFi failed</code>; the tester keeps working throughout.</p>
+<p class="note"><b>You should hear the fanfare exactly once per power-up.</b> If it plays twice in a row,
+something reset the board a few seconds in. That is almost always a program on your computer opening the
+tester's USB serial port - see section 10.</p>
+
+<h3>What the sounds mean</h3>
+<div class="scroll"><table>
+<tr><th>Sound</th><th>Meaning</th></tr>
+<tr><td>Six-note rising fanfare</td><td>The tester booted. Heard at power-up <b>and after any deliberate reboot</b>.</td></tr>
+<tr><td>Short rising two-note chime</td><td>WiFi joined. The IP appears on screen for four seconds.</td></tr>
+<tr><td>Rising three-note beep</td><td>Entering WiFi setup mode (you held <kbd>MODE</kbd> for 5 s).</td></tr>
+<tr><td>Falling three-note beep</td><td>Leaving setup mode (you held a button for 5 s while in setup).</td></tr>
+<tr><td>Single steady tone</td><td>Mode changed to <b>Ready</b>.</td></tr>
+<tr><td>Rising triad</td><td>Mode changed to <b>Charging</b>.</td></tr>
+<tr><td>Two-note fall</td><td>Mode changed to <b>Suspended</b>.</td></tr>
+<tr><td>Low two-note fall</td><td>Action refused - usually no charger connected. The screen says why.</td></tr>
+</table></div>
+<p class="note"><b>Both 5-second holds reboot the tester,</b> so each one is followed by the beep, then a
+short pause, then the full startup fanfare again. Hearing the fanfare after holding a button is expected and
+means the gesture worked. Hold <kbd>MODE</kbd> 5 s to enter setup, then any button 5 s to come back out.</p>
+
+<h2 id="s3"><span class="n">3</span>The buttons</h2>
+<div class="scroll"><table>
+<tr><th>Gesture</th><th>Action</th></tr>
+<tr><td><kbd>MODE</kbd> tap</td><td>Cycle the mode: Ready &rarr; Charging &rarr; Suspended &rarr; Ready.</td></tr>
+<tr><td><kbd>MODE</kbd> hold 5 s</td><td>Reboot into the <b>WiFi setup AP</b> (a rising beep confirms). See section 7.</td></tr>
+<tr><td><kbd>STATS</kbd> tap</td><td>Toggle the power-detail view (section 5). In Ready it shows the "No charger" prompt.</td></tr>
+<tr><td><kbd>MODE</kbd> + <kbd>STATS</kbd> hold</td><td>Inject a pilot fault while a charger is connected (section 6).</td></tr>
+<tr><td>Any button, held 5 s <span class="grn">(in setup mode)</span></td><td>Leave setup and reboot to normal operation (a falling beep confirms).</td></tr>
+</table></div>
+
+<h2 id="s4"><span class="n">4</span>The three modes</h2>
+<p>Press <kbd>MODE</kbd> to cycle. There is no auto-advance; each press is deliberate.</p>
+<div class="scroll"><table>
+<tr><th>Tester shows</th><th>J1772 state</th><th>OCPP 1.6</th><th>OCPP 2.1 (connector / charging)</th></tr>
+<tr><td><code>Ready</code></td><td>State A</td><td>Available</td><td>Available / Idle</td></tr>
+<tr><td><code>Preparing</code></td><td>State B</td><td>Preparing</td><td>Occupied / EVConnected</td></tr>
+<tr><td><code>Charging</code></td><td>State C</td><td>Charging</td><td>Occupied / Charging</td></tr>
+<tr><td><code>Suspended</code></td><td>State B</td><td>SuspendedEV</td><td>Occupied / SuspendedEV</td></tr>
+</table></div>
+<ul>
+<li><b>Starting Charging needs a live station.</b> With no pilot present, selecting Charging is refused
+with <code>No charger</code> / <code>Plug in first</code> and an error tone; the mode does not change.</li>
+<li><b>Charging is a two-step handshake.</b> It first presents State B (so the station starts its pilot
+PWM), waits ~1 s, then switches to State C to draw. The label reads <code>Preparing</code> until the
+station offers current, then <code>Charging</code>.</li>
+<li><b>Unplugging resets to Ready.</b> If the pilot disappears while Charging or Suspended, the tester
+returns to Ready on its own.</li>
+</ul>
+
+<h2 id="s5"><span class="n">5</span>The display</h2>
+<p>A 16x2 LCD. Long lines scroll.</p>
+<h3>Main view (Ready)</h3>
+<p>Line 1 shows <code>Ready</code>. Line 2 shows the WiFi / web status at a glance:</p>
+<div class="scroll"><table>
+<tr><th>Line 2</th><th>Meaning</th></tr>
+<tr><td><code>Web UI: 192.168.1.x</code></td><td>Connected - browse to that address for the web panel.</td></tr>
+<tr><td><code>No WiFi - hold MODE 5s to set up</code></td><td>No network configured (optional). Hold MODE 5 s to set up.</td></tr>
+<tr><td><code>WiFi failed - hold MODE 5s...</code></td><td>Saved network won't connect. Hold MODE 5 s to reconfigure.</td></tr>
+</table></div>
+<h3>Session &amp; stats views</h3>
+<p>While Charging/Suspended, line 2 shows <code>Offered: 16.0A</code> (the current the station advertises).
+Press <kbd>STATS</kbd> for the detail view: <code>Duty 53% 32.0A</code> and <code>7.7kW PP Seated</code>
+(offered power and proximity: <code>Seated</code>, <code>Release</code>, or <code>Open</code>).</p>
+
+<h2 id="s6"><span class="n">6</span>Fault injection</h2>
+<p>To force a pilot fault on the charger, hold <b>both buttons</b> during an active <b>Charging</b> session.
+The tester collapses the positive half of the Control Pilot, which a compliant station reads as a pilot
+fault (J1772 State E) and responds to by opening its contactor and stopping the session safely; the LCD
+shows <code>* FAULT INJECT *</code> / <code>pilot collapsed</code>. <b>Release both buttons to recover.</b></p>
+<p>Whether the charger then reports OCPP <b>Faulted</b> to your CSMS is up to its firmware, so do not
+assume it will. Many stations classify a Control Pilot anomaly as an EV-side communication error rather
+than an internal fault: they stop the session but send a StatusNotification with a status such as
+SuspendedEV or Finishing and an <code>errorCode</code> of <code>EVCommunicationError</code>, not status
+<code>Faulted</code>. A true OCPP Faulted usually requires a station-internal fault (ground fault,
+over-temperature, a failed relay), which a vehicle-side tester cannot produce. Check both the status and
+errorCode fields at the CSMS to see how your charger classified it.</p>
+<p>Fault injection only does something while the charger is actively charging. In Ready or Preparing the
+gesture is refused: with a charger present but not yet charging the LCD shows <code>Charge first</code> /
+<code>to inject fault</code>, and with no charger connected it shows <code>No charger</code>.</p>
+
+<h2 id="s7"><span class="n">7</span>WiFi setup</h2>
+<p>WiFi is <b>optional</b> - the tester is fully functional without it. A unit with no saved network simply
+runs offline with the radio off.</p>
+<h3>Enter setup mode</h3>
+<p>Hold <kbd>MODE</kbd> for 5 seconds (or, on the web panel, hold the on-screen MODE button 5 s). The
+tester reboots into its setup access point:</p>
+<ul>
+<li>Network: <code>EVtivity-EV-Tester-XXXX</code> (open, no password). <b>XXXX</b> is a 4-character suffix unique to each unit (from its chip ID), so several testers on one bench stay distinct - the same name shows in your WiFi list and the router's client list.</li>
+<li>Address: <code>http://192.168.4.1</code> (a setup page usually opens automatically)</li>
+</ul>
+<p>Enter your WiFi name and password and save; the tester restarts and joins. You can also set the web
+login and MQTT here. To leave setup without changing anything, hold any button 5 s (or power-cycle).</p>
+<p>If saved credentials fail, the Ready line shows <code>WiFi failed</code> and the radio keeps retrying
+quietly - the tester keeps working. There is no automatic AP fallback; enter setup deliberately with the
+5 s hold.</p>
+
+<h2 id="s8"><span class="n">8</span>Web control panel</h2>
+<p>Once on your network, browse to the tester's IP (shown on the Ready line). The panel:</p>
+<ul>
+<li>Mirrors the LCD live on a virtual 16x2 display.</li>
+<li>Has on-screen <b>MODE</b> and <b>STATS</b> buttons that act exactly like the physical ones - including
+<b>hold MODE 5 s</b> to enter WiFi setup.</li>
+<li>Shows the mode-to-OCPP status table, an <b>MQTT</b> info panel (section 9), and a <b>Fun</b> page.</li>
+</ul>
+<p>The panel is login-protected (default <code>admin</code> / <code>admin</code>). WiFi, login, and MQTT
+settings can only be changed in <b>setup mode</b> - the connected panel has no settings form, so a live
+tester can't be reconfigured or locked out by accident.</p>
+
+<h2 id="s9"><span class="n">9</span>MQTT remote control</h2>
+<p>Configure a broker in setup mode (leave the broker blank to keep MQTT off). Each device defaults to its
+own base topic, <code>evtester-XXXX</code> - the same 4-character suffix as its setup-AP name (shown on the
+web panel's <b>MQTT</b> button) - so several testers on one broker stay independent. Change it in setup mode
+if you want a specific name. The tester connects to your broker as a client and:</p>
+<p>A broker is a separate small server that both the tester and your control tools connect to - it is
+<b>not</b> the tester's own IP address. If you don't already run one, see <a href="#localbroker">Running a
+local broker</a> below.</p>
+<h3>Mode commands</h3>
+<p>Publish a one-word payload to <code>&lt;topic&gt;/mode</code>:</p>
+<div class="scroll"><table>
+<tr><th>Payload</th><th>Effect</th></tr>
+<tr><td><code>ready</code></td><td>Go to Ready (State A).</td></tr>
+<tr><td><code>charge</code> <span class="grn">(also</span> <code>charging</code> <code>preparing</code><span class="grn">)</span></td><td>Start Charging - needs a live charger, same guard as the button.</td></tr>
+<tr><td><code>suspend</code> <span class="grn">(also</span> <code>suspended</code><span class="grn">)</span></td><td>Suspend (State B).</td></tr>
+<tr><td><code>fault</code></td><td>Inject a pilot fault - needs a live charger; any other mode command clears it.</td></tr>
+</table></div>
+<h3>Song commands</h3>
+<p>Publish a one-word payload to <code>&lt;topic&gt;/song</code>:</p>
+<div class="scroll"><table>
+<tr><th>Payload</th><th>Effect</th></tr>
+<tr><td><code>hbd</code></td><td>Play Happy Birthday.</td></tr>
+<tr><td><code>xmas</code></td><td>Play Merry Christmas.</td></tr>
+<tr><td><code>canon</code></td><td>Play Canon in D.</td></tr>
+<tr><td><code>stop</code></td><td>Stop the song.</td></tr>
+</table></div>
+<h3>Publishes state</h3>
+<ul>
+<li><code>&lt;topic&gt;/state</code> - retained: <code>ready</code> / <code>charging</code> /
+<code>suspended</code> / <code>faulted</code>, updated on every change.</li>
+<li><code>&lt;topic&gt;/availability</code> - <code>online</code>, with <code>offline</code> set as the
+broker's last-will so a dropped tester shows offline.</li>
+</ul>
+<p>Examples (replace <code>evtester-XXXX</code> with your device's topic): <code>mosquitto_pub -h BROKER -t evtester-XXXX/mode -m charge</code>
+(mode) and <code>mosquitto_pub -h BROKER -t evtester-XXXX/song -m hbd</code> (song). The web panel's <b>MQTT</b>
+button shows the live broker, connection state, and these topics filled in with the configured device's values.</p>
+
+<h3 id="localbroker">Running a local broker</h3>
+<p>MQTT needs a broker - a small server the tester and your control tools all connect to. For bench use
+the simplest broker is <b>Mosquitto</b> running on your own laptop or an always-on host on the same
+network. Install it (macOS shown; Linux <code>apt install mosquitto</code>, Windows from
+<code>mosquitto.org</code>):</p>
+<pre>brew install mosquitto</pre>
+<p>Mosquitto 2.x listens on localhost only and rejects anonymous clients by default, so the tester on the
+LAN can't reach a bare install. Save this two-line config (for example <code>mosquitto-lan.conf</code>) to
+open it to the LAN:</p>
+<pre>listener 1883 0.0.0.0
+allow_anonymous true</pre>
+<p>Start the broker with that config:</p>
+<pre>mosquitto -c mosquitto-lan.conf -v</pre>
+<p>Find the host's LAN IP (macOS: <code>ipconfig getifaddr en0</code>). Then in the tester's <b>setup
+mode</b> set the MQTT broker to that IP and port <code>1883</code>, with username and password blank; leave
+the topic at its per-device default. Save; the tester reboots onto your WiFi and connects.</p>
+<ul>
+<li>The tester, the broker host, and any control tool must be on the <b>same network</b>.</li>
+<li>If the tester won't connect, check the broker host's <b>firewall</b> allows inbound TCP <code>1883</code>.</li>
+<li>The host's IP can change on DHCP renewal. If it stops connecting later, re-check the IP or reserve it on
+your router.</li>
+<li>Anonymous LAN access is fine for a bench broker. <b>Do not expose it to the internet.</b></li>
+</ul>
+<p>The repo ships a ready-to-use console client, <code>mqtt-test.py</code>. Run <code>python3
+mqtt-test.py</code>, point it at the same broker and topic, and scroll the mode/song commands with the
+arrow keys - no need to type <code>mosquitto_pub</code> lines by hand.</p>
+
+<h2 id="s10"><span class="n">10</span>Antenna &amp; troubleshooting</h2>
+<p>The XIAO ESP32-S3 has no onboard antenna; the external U.FL antenna is mandatory for WiFi. If any
+network feature misbehaves, seat the antenna first.</p>
+<div class="scroll"><table>
+<tr><th>Symptom</th><th>Meaning / fix</th></tr>
+<tr><td>Web panel / setup AP not visible, or WiFi never joins</td><td>The radio can't transmit without the antenna. Clip the U.FL antenna firmly onto the connector by the USB port and reboot.</td></tr>
+<tr><td>Setup AP visible but "connection failed", then vanishes</td><td>Forget the <code>EVtivity-EV-Tester-XXXX</code> network on the phone and rejoin - a stale cached association blocks the reconnect.</td></tr>
+<tr><td>LCD says <code>WiFi failed</code></td><td>Saved credentials are wrong or the network is unreachable. Hold MODE 5 s to reconfigure. The tester still works.</td></tr>
+<tr><td><code>No charger</code> / <code>Plug in first</code></td><td>You tried to Charge (or a button action) with no pilot present. Plug into a live station first.</td></tr>
+<tr><td><code>Offered: --</code> while Charging</td><td>The station has not offered current yet, or isn't driving pilot PWM.</td></tr>
+<tr><td>It dropped to Ready on its own</td><td>The pilot was lost (a real or momentary unplug).</td></tr>
+<tr><td><b>Splash and fanfare play twice</b> every time you plug into a computer</td><td>A program on the computer is opening the tester's USB serial port, and on this chip that resets it in hardware. Slicers and printer hosts are the usual culprits - <b>UltiMaker Cura's "USB Printing" plugin</b> scans every serial device looking for a printer. Turn it off in Cura: <i>Marketplace &rarr; Installed &rarr; untick USB Printing</i>, then restart Cura. Slicing is unaffected. OctoPrint, Pronterface and some IDEs do the same. On a wall adapter or barrel jack with no computer attached, this cannot happen.</td></tr>
+</table></div>
+
+<h2 id="s11"><span class="n">11</span>Specifications</h2>
+<div class="scroll"><table>
+<tr><td>Function</td><td>J1772 AC EV-side session tester (signal only)</td></tr>
+<tr><td>Controller</td><td>Seeed XIAO ESP32-S3 (external U.FL WiFi antenna required)</td></tr>
+<tr><td>Display</td><td>16x2 I2C LCD</td></tr>
+<tr><td>Input power</td><td>5 V DC barrel (1 A min, 2 A recommended) or USB-C</td></tr>
+<tr><td>Pilot</td><td>Control Pilot state switching (A/B/C) + PWM read; fault injection</td></tr>
+<tr><td>Proximity</td><td>Read and reported (Seated / Release / Open)</td></tr>
+<tr><td>Connectivity</td><td>WiFi web panel + optional MQTT</td></tr>
+<tr><td>Setup network</td><td><code>EVtivity-EV-Tester-XXXX</code> (open), <code>192.168.4.1</code></td></tr>
+<tr><td>Default web login</td><td><code>admin</code> / <code>admin</code></td></tr>
+</table></div>
+
+<h2 id="s12"><span class="n">12</span>Safety</h2>
+<ul>
+<li>This is a <b>signal-level test tool</b>. Never connect mains (L1 / L2 / N) to the board; only CP, PP,
+and GND belong on J1.</li>
+<li>Power the barrel jack from a <b>5 V</b> supply only. The onboard protection cuts off a mis-plugged
+higher-voltage supply, but do not rely on it as a habit.</li>
+<li>Use it only with equipment you are authorized to test.</li>
+</ul>
+
+<footer>&copy; 2026 EVtivity &middot; EV Tester &middot; Firmware v0.1.22</footer>
+
+</div>
+</body>
+</html>

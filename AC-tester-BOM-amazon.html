@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EVtivity EV Tester - Amazon BOM (non-JLCPCB parts)</title>
+<style>
+  :root { --green:#22c55e; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f8fafc; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--ink);
+         margin:0; padding:32px; background:var(--bg); line-height:1.5; }
+  h1 { margin:0 0 4px; font-size:24px; }
+  h2 { margin:30px 0 10px; font-size:16px; border-left:4px solid var(--green); padding-left:10px; }
+  .sub { color:var(--muted); font-size:13px; margin:0 0 18px; }
+  .note { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px 16px;
+          font-size:13px; margin:16px 0; }
+  .note b { color:#b45309; }
+  .have { background:#ecfdf5; border:1px solid #a7f3d0; }
+  .have b { color:#047857; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line);
+          border-radius:8px; overflow:hidden; margin-bottom:8px; }
+  th,td { text-align:left; padding:9px 12px; font-size:13px; vertical-align:top; border-bottom:1px solid var(--line); }
+  th { background:#f1f5f9; font-weight:600; }
+  tr:last-child td { border-bottom:none; }
+  td.ref { font-family:ui-monospace,Menlo,Consolas,monospace; white-space:nowrap; font-weight:600; }
+  td.qty { white-space:nowrap; text-align:center; font-weight:600; }
+  td.use { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:var(--muted); }
+  a.buy { display:inline-block; background:var(--green); color:#fff; text-decoration:none;
+          padding:4px 10px; border-radius:6px; font-size:12px; font-weight:600; white-space:nowrap; }
+  a.buy:hover { background:#16a34a; }
+  a.buy.done { background:#94a3b8; }
+  a.buy.search { background:#0ea5e9; }
+  a.buy.search:hover { background:#0284c7; }
+  code { background:#f1f5f9; padding:1px 5px; border-radius:4px; font-size:12px; }
+  .legend { font-size:12px; color:var(--muted); margin:4px 0 0; }
+  .legend span.k { display:inline-block; color:#fff; border-radius:4px; padding:1px 7px; font-weight:600; margin-right:4px; }
+  footer { margin-top:28px; font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>EVtivity EV Tester &mdash; Amazon BOM (parts JLCPCB does <em>not</em> assemble)</h1>
+<p class="sub">Type 1 / SAE J1772 AC tester, Seeed XIAO ESP32-S3 carrier. This is the companion list to the JLCPCB order. JLCPCB fabricates the PCB and places the 30 SMD parts (see <code>jlcpcb/ac-tester-bom.csv</code>). Everything below is what you buy yourself to finish the assembled board into a working tester: the XIAO module, the LCD, the through-hole connectors you hand-solder, the buzzer, the mounting hardware, and the off-board panel parts.</p>
+
+<p class="legend">
+<span class="k" style="background:#22c55e">Buy</span> exact Amazon product page (verified).
+<span class="k" style="background:#0ea5e9">Search</span> filtered Amazon search (pick any well-reviewed result; exact part is not critical).
+</p>
+
+<div class="note have">
+<b>Already purchased.</b> The SAE J1772 Type 1 vehicle-side socket inlet (the socket the charger plug pushes into). Its six leads (CP / PP / PE / L1 / L2 / N) land on the J1 terminal block. <a class="buy done" target="_blank" href="https://www.amazon.com/gp/product/B09VCRSF6H">Your link</a>
+</div>
+
+<div class="note">
+<b>What JLCPCB already did.</b> The fab places all SMD parts: the AP2112K LDO (U2), the TPS26621 eFuse (U3), the six 2N7002 MOSFETs (Q1-Q6, including the two-FET I2C level shifter), every diode and TVS (D1, D2, D3, D6, TVS1, TVS2), the PTC fuse (F1), and all 0805 resistors and capacitors. You do <b>not</b> buy any of those here. This list is only the through-hole, mechanical, and off-board items.
+</div>
+
+<h2>1. Modules (plug in / wire to the board)</h2>
+<table>
+<tr><th>Item</th><th>Ref</th><th>Qty</th><th>What it is</th><th>Buy</th></tr>
+
+<tr>
+<td>Seeed XIAO ESP32-S3</td>
+<td class="use">DEVBOARD</td>
+<td class="qty">1</td>
+<td>The MCU. Plugs into the J5/J6 sockets (do not solder it down). Get the version with the U.FL antenna connector. Drives the state MOSFETs, reads the CP PWM and proximity, runs the LCD, and does WiFi to the CSMS.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/dp/B0C9GXR9XF">Buy</a></td>
+</tr>
+
+<tr>
+<td>16x2 I2C LCD (1602, PCF8574)</td>
+<td class="use">LCD1</td>
+<td class="qty">1</td>
+<td>The readout. Mounts on the four M2.5 standoffs and wires to the J3 header (VCC / GND / SDA / SCL). Default I2C address 0x27 (try 0x3F if blank). 80x36&nbsp;mm module, 75x31&nbsp;mm hole pattern.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/Hosyond-Display-Module-Arduino-Raspberry/dp/B0BWTFN9WF">Buy</a></td>
+</tr>
+</table>
+
+<h2>2. Through-hole connectors you hand-solder onto the board</h2>
+<table>
+<tr><th>Item</th><th>Ref</th><th>Qty</th><th>What it is</th><th>Buy</th></tr>
+
+<tr>
+<td>1x7 female header socket, 2.54mm</td>
+<td class="use">J5, J6</td>
+<td class="qty">2</td>
+<td>The two sockets the XIAO plugs into (rows 15.24&nbsp;mm apart). Buy a 2.54&nbsp;mm single-row female header strip and cut two 7-pin lengths. A multipack covers it with spares.</td>
+<td><a class="buy search" target="_blank" href="https://www.amazon.com/s?k=2.54mm+single+row+female+pin+header+strip">Search</a></td>
+</tr>
+
+<tr>
+<td>3-pin terminal block, 5.08mm pitch (fixed, one-piece)</td>
+<td class="use">J1</td>
+<td class="qty">1</td>
+<td>Screw terminal for the J1772 inlet's signal leads. The board's J1 footprint is a 3-position 5.08&nbsp;mm block: <b>positions 1-3 = CP / PP / GND</b>. Use a <b>3-pin 5.08&nbsp;mm</b> piece (the mains leads L1/L2/N are never brought to the board). Fixed one-piece Arduino-standard block (solders to the board, wires screw straight in), the type the J1 footprint is drawn for. Labeled "5&nbsp;mm" but it is the 5.08&nbsp;mm (0.2") standard; over 3 poles it seats either way. The 60-pc pack has 2- and 3-pin pieces (they dovetail); use a 3-pin for J1.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/dp/B08PQFPFSF">Buy</a></td>
+</tr>
+
+<tr>
+<td>DC barrel jack, 5.5x2.1mm, PCB mount</td>
+<td class="use">J2</td>
+<td class="qty">1</td>
+<td>5&nbsp;V power input (center-positive). The "breadboard-friendly 2.1&nbsp;mm DC barrel jack" is the CUI <b>PJ-102AH</b>, the exact part the J2 footprint is drawn for (pads at 0/6.0/4.7&nbsp;mm), so it drops straight in. Use a center-positive 5&nbsp;V adapter.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/dp/B074LK7G86">Buy</a></td>
+</tr>
+
+<tr>
+<td>Breakaway male header pins, 2.54mm</td>
+<td class="use">J3, SW1, SW2</td>
+<td class="qty">1 strip</td>
+<td>Snap to length: one 1x4 for the LCD header (J3) and two 1x2 for the button headers (SW1, SW2). One 40-pin strip covers all three with spares.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/Gikfun-2-54mm-Single-Breakaway-Arduino/dp/B00U8OCENY">Buy</a></td>
+</tr>
+
+<tr>
+<td>Passive piezo buzzer (through-hole)</td>
+<td class="use">LS1</td>
+<td class="qty">1</td>
+<td>Audible state indicator (a distinct tone per state, plus a startup jingle and an error tone). The board drives it through Q4, so it must be a <b>passive</b> piezo transducer (not an active module). JESSINIE 1407, 14x7&nbsp;mm, <b>7.5&nbsp;mm pitch</b> (fits the 7.6&nbsp;mm LS1 holes), ~4&nbsp;kHz. Pitch is the binding spec, so avoid the 12&nbsp;mm models (1207/1225/12085) in this family, they are 6.5&nbsp;mm pitch and will not line up. The LS1 footprint is a 15&nbsp;mm outline that covers the 14&nbsp;mm body, placed clear of the terminal block. Exact 7.6&nbsp;mm-pitch drop-in is the TDK PS1440P02BT (DigiKey), not on Amazon.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/dp/B0G523Y1S4">Buy</a></td>
+</tr>
+</table>
+
+<div class="note">
+<b>SW1 / SW2 are headers, not the buttons.</b> The board has 2-pin headers for MODE and SELECT. The actual panel buttons are off-board (section 4) and wire to these headers. If you only bench-test, you can short the header pins by hand instead.
+</div>
+
+<h2>3. Mounting hardware</h2>
+<table>
+<tr><th>Item</th><th>Ref</th><th>Qty</th><th>What it is</th><th>Buy</th></tr>
+
+<tr>
+<td>M2.5 brass standoff + screw kit</td>
+<td class="use">H1-H4</td>
+<td class="qty">4 sets</td>
+<td><b>M2.5 ONLY.</b> Holds the 1602 LCD above the carrier. The LCD holes are &Oslash;2.5&nbsp;mm and the board holes &Oslash;2.7&nbsp;mm, so an M3 will not fit and would crack the LCD. M2.5 brass standoff + screw + nut assortment kit. Pick a <b>~14-15&nbsp;mm</b> standoff (or stack) so the LCD clears the XIAO underneath (~13&nbsp;mm tall); confirm the kit includes a long enough M2.5 piece.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/dp/B0G1XNRC53">Buy</a></td>
+</tr>
+
+<tr>
+<td>M3 screws (board to enclosure)</td>
+<td class="use">MH1-MH4</td>
+<td class="qty">4</td>
+<td>Fasten the carrier into the enclosure posts through the four &Oslash;3.2&nbsp;mm corner holes. M3 here only, never on the LCD. An M3 assortment kit covers these and the inlet-bay screws.</td>
+<td><a class="buy search" target="_blank" href="https://www.amazon.com/s?k=M3+screw+nut+standoff+assortment+kit">Search</a></td>
+</tr>
+
+<tr>
+<td>M4 screws (wall ears, optional)</td>
+<td class="use">enclosure</td>
+<td class="qty">2-4</td>
+<td>Only if you wall-mount the case. The enclosure has four external M4 mounting ears.</td>
+<td><a class="buy search" target="_blank" href="https://www.amazon.com/s?k=M4+screw+assortment+kit">Search</a></td>
+</tr>
+</table>
+
+<h2>4. Off-board / panel parts</h2>
+<table>
+<tr><th>Item</th><th>Ref</th><th>Qty</th><th>What it is</th><th>Buy</th></tr>
+
+<tr>
+<td>Panel-mount momentary switches, 12mm metal (STARELO, pre-wired)</td>
+<td class="use">MODE, SELECT</td>
+<td class="qty">2 (5-pack)</td>
+<td>The two front-panel buttons. STARELO 12&nbsp;mm momentary, <b>SPST normally-open</b>, stainless, IP65, pre-wired pigtail, no LED. NO momentary is exactly right for the board's active-low inputs (internal pull-up): wire one lead to the SW1/SW2 header signal pin and the other to GND. Needs a 12&nbsp;mm panel hole.</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/dp/B09BKWMNJ9">Buy</a></td>
+</tr>
+
+<tr>
+<td>U.FL (IPEX) to SMA pigtail + antenna</td>
+<td class="use">antenna</td>
+<td class="qty">1</td>
+<td>Optional but recommended for WiFi range. The XIAO's U.FL goes to an SMA bulkhead on the right wall (6.5&nbsp;mm hole). Get a pigtail plus a 2.4&nbsp;GHz SMA antenna.</td>
+<td><a class="buy search" target="_blank" href="https://www.amazon.com/s?k=u.fl+ipex+to+sma+pigtail+2.4ghz+antenna">Search</a></td>
+</tr>
+
+<tr>
+<td>5V center-positive power adapter, 5.5x2.1mm</td>
+<td class="use">power</td>
+<td class="qty">1</td>
+<td>Feeds the J2 barrel jack to power the board off USB. Center-positive, 5&nbsp;V, &ge;1&nbsp;A, 5.5x2.1&nbsp;mm plug. (Or just power the XIAO over its own USB-C and skip the barrel.)</td>
+<td><a class="buy" target="_blank" href="https://www.amazon.com/Universal-Regulated-Charger-Wireless-Switches/dp/B074W43FYH">Buy</a></td>
+</tr>
+
+<tr>
+<td>Hookup wire (22-24 AWG)</td>
+<td class="use">wiring</td>
+<td class="qty">1</td>
+<td>For the inlet leads to J1, the panel buttons to SW1/SW2, the LCD to J3, and the antenna run. Stranded for the panel, any color set.</td>
+<td><a class="buy search" target="_blank" href="https://www.amazon.com/s?k=22+AWG+stranded+hookup+wire+assortment">Search</a></td>
+</tr>
+</table>
+
+<div class="note">
+<b>Power: pick one source, not both.</b> Either plug a 5&nbsp;V adapter into the J2 barrel jack, or power the XIAO over its own USB-C. The barrel feeds the AP2112K LDO (placed by JLCPCB), which makes 3.3&nbsp;V and back-feeds the XIAO's 3V3 pad. Do not feed both at once.
+</div>
+
+<div class="note">
+<b>Cross-reference.</b> Every reference designator above maps to a <code>HAND-SOLDER</code>, <code>MECHANICAL</code>, or <code>NOT ON PCB</code> row in <code>jlcpcb/BOM-jlcpcb.csv</code>. The complementary 30 SMD parts JLCPCB assembles are in <code>jlcpcb/ac-tester-bom.csv</code> with LCSC part numbers. Between the two files, every part on the board is accounted for.
+</div>
+
+<footer>
+Exact-ASIN links were verified product pages as of June 2026; availability and price change. Search links return current listings, pick any well-reviewed result since the exact part is not critical for these items. The SMD parts are not here on purpose, JLCPCB places them.
+</footer>
+
+</body>
+</html>

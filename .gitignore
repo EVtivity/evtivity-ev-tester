@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Arduino / ESP32 build output
+firmware/**/build/
+*.hex
+*.bin
+*.elf
+
+# KiCad local state / caches (not part of the shared design)
+*.kicad_prl
+fp-info-cache
+*-backups/
+*.lck
+~*.lck
+
+# Editor local history
+.history/
+
+# Python caches (should not appear here, but just in case)
+__pycache__/
+*.pyc
